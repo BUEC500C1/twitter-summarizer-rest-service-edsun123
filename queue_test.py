@@ -1,6 +1,5 @@
 import _thread as thread, queue, time
 
-import tweepy
 import time
 import io
 import os
