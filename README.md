@@ -18,7 +18,7 @@ For the queueing system, I have 1 consumer process that retrieves the tweets and
 1) Main program is run in queue_test.py
 To run...
 ```
-python3 queue_test.py
+python3 tweet_vid_converter.py
 ```
 2) Video file names are stored in list.txt
 3) Keys for authentication is stored in separate keys file called keys.py
@@ -27,6 +27,8 @@ TWITTER_API_KEY = XXXXXXXXX
 TWITTER_API_SECRET_KEY = XXXXXXXXXXXXXXXXXX
 TWITTER_ACCESS_TOKEN = XXXXXXXXX
 TWITTER_ACCESS_TOKEN_SECRET = XXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+*Note: if you want to change specific number of tweets and change the tweet handle. Change the variables username and num_tweets in lines 59 and 60. 
 
 ```
 # Threads
