@@ -1,5 +1,6 @@
 import _thread as thread, queue, time
 
+import tweepy
 import time
 import io
 import os
@@ -21,20 +22,24 @@ import urllib.request
 import tweepy
 import datetime
 import sys
+from pathlib import Path
 
 numconsumers = 2
 numproducers = 1
 nummessages = 1
 
-Consumer_key= 'oneBlZdM0AaWQzuutkVxQJZ3g'
-Consumer_secret= 'vsTzdyO3jHgiCQglgX1nqo8VaylxFpn0u93XEseBbALRCR9g5F'
-Access_key= '1222946005336936449-bS53klLdH43Bi71nSQyVWPhD6cdrSA'
-Access_secret= 'Dybso4U2NA3ibzd6nZtcNrCarvpqsYCFgoGEAAh4lxeAS'
-
 auth=tweepy.OAuthHandler(Consumer_key, Consumer_secret)
 auth.set_access_token(Access_key, Access_secret)
 api = tweepy.API(auth)
 
+def key_exist():
+    if Path('keys.py').is_file():
+        print("File exist")
+        return True
+    else:
+        print ("File not exist")
+        return False
+        
 credential_path = r"twittervision-eb2dfdbe7250.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
@@ -52,6 +57,7 @@ def store_last_seen_id(last_seen_id, file_name):
 
 FILE_NAME = 'last_seen_id.txt'
 username = "Edwin86888730"
+num_tweet = 10
 
 #dictate what date is the best
 startDate = datetime.datetime(2020, 2, 20, 0, 0, 0)
@@ -98,15 +104,18 @@ def retrieve_one_tweet():
         str = mention.full_text
         return str
         
-def retrieve_all_tweets():
-    tweets = []
-    tmpTweets = api.user_timeline(username, tweet_mode='extended')
-    for tweet in tmpTweets:
+def retrieve_all_tweets(user, num_count):
+    if key_exist()!=True:
+        replace_list=["a","b","c","d","e","f","g","h","i","j"]
+        return replace_list
         
-        if tweet.created_at < endDate and tweet.created_at > startDate:
-            str=tweet.full_text
-            print(tweet.full_text)
-            tweets.append(str)
+    tweets = []
+    tmpTweets = api.user_timeline(user, count = num_count, tweet_mode='extended')
+    for tweet in tmpTweets:
+#        if tweet.created_at < endDate and tweet.created_at > startDate:
+        str=tweet.full_text
+        print(tweet.full_text)
+        tweets.append(str)
     return tweets
     
 def wait_for_tweet():
@@ -116,7 +125,7 @@ def wait_for_tweet():
         
 def producer(idnum):
     tweet_list = []
-    tweet_list=retrieve_all_tweets()
+    tweet_list=retrieve_all_tweets(username, num_tweet)
     for tweet in tweet_list:
         dataQueue.put(tweet)
  
@@ -143,6 +152,7 @@ def create_slideshow():
     return 1
  
 if __name__ == '__main__':
+
     os.system("rm {str1}.mp4".format(str1="mergedfile"))
     for i in range(numconsumers):
         thread.start_new_thread(consumer, (i,))
@@ -156,5 +166,5 @@ if __name__ == '__main__':
     for i in range(1, count+1):
            print("removing")
            os.system("rm {str1}.mp4".format(str1="output"+str(i)))
-            
+             
     os.system("> list.txt")
