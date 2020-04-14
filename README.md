@@ -35,4 +35,4 @@ TWITTER_ACCESS_TOKEN_SECRET = XXXXXXXXXXXXXXXXXXXXXXXXXXX
 Normally you would expect on thread is assigned to each core. Given a mac computer with 4 cores, it should handle 4 threads of tweet-video conversion. However, I've found that the performance jumps around 30-40% in cpu usage instead of 25%. Then it is found that by default, each thread for frame conversion is ~1.5 threads per core. So for performance reasons, I've had at most 2 producers or 2 threads to do the video-thread conversion
 
 #Flask application
-  In progress ... I have issues conecting to the amazon ec2 instance because ports for 80 is closed. However,I do have the test flask appllication up. The only issue is connecting it. 
+    I have issues conecting to the amazon ec2 instance because ports for 80 is closed. However, I was able to fix the issue by going to an ubuntu server hosted by amazon. I was able to ssh into the webserver, scp files into the server, downloaded the dependencies in the server, and ran it using rest service. 
