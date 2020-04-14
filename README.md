@@ -36,3 +36,4 @@ Normally you would expect on thread is assigned to each core. Given a mac comput
 
 #Flask application
     I have issues conecting to the amazon ec2 instance because ports for 80 is closed. However, I was able to fix the issue by going to an ubuntu server hosted by amazon. I was able to ssh into the webserver, scp files into the server, downloaded the dependencies in the server, and ran it using rest service. 
+     There is a folder called eflask2 that helps install dependencies and run the application in the ubuntu web server. 
